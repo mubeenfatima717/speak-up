@@ -1,0 +1,157 @@
+Project Documentation & Status Report: SpeakUp AI
+Project Name: SpeakUp AI
+Version: 1.0 (Core Features Complete)
+Date: September 8, 2025
+Status: Core features are 100% functionally complete and refactored. The project is ready to begin the next major development phase: monetization via a subscription system.
+Table of Contents
+Executive Summary
+Final Project Architecture
+Folder Structure Overview
+Detailed File & Folder Responsibilities
+Completed Work: A Detailed Feature Breakdown
+Phase 0: Foundational Setup
+Phase 1 & 2: User Authentication System
+Phase 3: Core AI Voice Session
+Phase 4: Database & History Persistence
+Phase 5: Code Refactoring & Scalability
+Phase 6: AI Intelligence Upgrade
+Roadmap: What is Left
+Phase 7: Subscription System Implementation (Lemon Squeezy)
+1. Executive Summary
+SpeakUp AI is a modern, AI-powered web application designed to help users improve their speaking skills through realistic, interactive simulations. Users can engage in voice conversations with various AI personas, such as a therapist, an HR manager for a job interview, a senior engineer for a technical interview, or an official IELTS examiner.
+The application's core functionality is 100% complete, tested, and stable. This includes user authentication, real-time voice-to-text transcription, live AI-powered conversation, multi-stage scenario management, and the persistence of user session history. The codebase has undergone a complete professional refactoring, moving from a monolithic structure to a highly organized, scalable architecture based on modern React hooks and a clear separation of concerns.
+The project is now at a major inflection point, ready to move beyond its core feature set and into the implementation of its monetization strategy: a "Pro" subscription tier powered by the Paddle payment platform.
+2. Final Project Architecture
+Folder Structure Overview
+The project follows a standard, professional Next.js app router structure.
+code
+Code
+speak-up/
+├── app/
+│   ├── api/
+│   │   ├── chat/
+│   │   │   └── route.js
+│   │   └── generate-report/
+│   │       └── route.js
+│   ├── components/
+│   │   ├── AuthModal.js
+│   │   ├── Header.js
+│   │   ├── Icons.js
+│   │   ├── ReportView.js
+│   │   ├── SessionView.js
+│   │   └── Sidebar.js
+│   ├── context/
+│   │   └── AuthContext.js
+│   ├── data/
+│   │   └── scenarios.js
+│   ├── hooks/
+│   │   ├── useFirestoreHistory.js
+│   │   ├── useMediaDevices.js
+│   │   └── useSession.js
+│   ├── login/
+│   │   └── page.js
+│   ├── signup/
+│   │   └── page.js
+│   ├── firebaseConfig.js
+│   ├── globals.css
+│   ├── layout.js
+│   └── page.js
+├── public/
+│   └── google-icon.png
+├── .env.local
+├── .gitignore
+└── package.json
+Detailed File & Folder Responsibilities
+app/api/ (Backend Logic)
+chat/route.js: Secure backend API that handles live, multi-turn conversations. It receives conversation history from the client, passes it to the Google Gemini API, and returns the AI's response.
+generate-report/route.js: Secure backend API dedicated to generating performance reports. It receives a full conversation transcript and uses a powerful "meta-prompt" to instruct the Gemini API to create a structured analysis.
+app/components/ (UI Components)
+These are "presentational" components. They receive data and functions (props) and are responsible for rendering the UI. They contain no complex application logic.
+AuthModal.js: The login/signup pop-up modal.
+Header.js: The top navigation bar.
+Icons.js: A library of SVG icons used throughout the application.
+ReportView.js: A dedicated component to display formatted performance reports and handle report downloads.
+SessionView.js: The main two-panel interface for an active, live voice session.
+Sidebar.js: The left sidebar for scenario selection and viewing session history.
+app/context/ (Global State Management)
+AuthContext.js: Manages the global user authentication state (logged in, logged out, user data) and makes it available to the entire application.
+app/data/ (Static Data)
+scenarios.js: Contains the array of all simulation scenarios. This includes the advanced, multi-stage "State Machine" prompts that define the AI's personality, rules, and conversational flow.
+app/hooks/ (Core Application Logic)
+This directory contains the "brains" of the application, encapsulated in reusable React hooks.
+useFirestoreHistory.js: Manages all interactions with the Firestore database, including fetching history, saving new sessions, and triggering the report generation/update process.
+useMediaDevices.js: Manages all complex browser media APIs, including webcam access and screen recording.
+useSession.js: The engine of a live session. It manages the conversation state, handles speech recognition (voice-to-text), text-to-speech, and manages the logic for multi-stage scenarios like the IELTS test.
+app/page.js (The Orchestrator)
+The central hub of the application. It does not contain complex logic itself. Its sole responsibility is to call the custom hooks, manage high-level UI state (like which view is active), and pass the data and functions from the hooks down to the UI components.
+Configuration Files
+firebaseConfig.js: Initializes the connection to Firebase services by reading public keys from environment variables.
+.env.local: (Private & Untracked) Securely stores all secret API keys (Gemini, Paddle) and public configuration keys (Firebase).
+.gitignore: (Crucial for Security) A list of files and folders (like .env.local and node_modules) that are explicitly forbidden from ever being uploaded to GitHub.
+3. Completed Work: A Detailed Feature Breakdown
+✅ Phase 0: Foundational Setup (100% Complete)
+A modern Next.js 14+ application was initialized with the App Router and styled with Tailwind CSS, providing a robust and professional foundation.
+✅ Phase 1 & 2: User Authentication System (100% Complete)
+A complete authentication system was integrated using Firebase Authentication.
+Features: User signup, login (Email/Password & Google), and logout.
+State Management: A global AuthContext provides session information across the entire app, allowing the UI to change dynamically based on user status.
+✅ Phase 3: Core AI Voice Session (100% Complete)
+The primary feature of the application is fully functional.
+Real-time Voice-to-Text: Utilizes the browser's Web Speech API for continuous, live transcription of the user's voice.
+Text-to-Speech: Uses the browser's Speech Synthesis API to give the AI a voice, creating an immersive conversational experience.
+Secure AI Communication: All communication with the Google Gemini API is proxied through a secure backend API route, protecting the secret API key.
+Live Webcam Feed: Users can toggle their webcam on and off during sessions.
+✅ Phase 4: Database & History Persistence (100% Complete)
+User progress and history are saved for logged-in users using Google Firestore.
+Functionality: Upon completion of a session, metadata (scenario name, date) is saved to the user's unique document in the database. The "Recent History" panel fetches and displays this list. This system has been upgraded to support the saving of AI-generated reports.
+✅ Phase 5: Code Refactoring & Scalability (100% Complete)
+The entire application logic was professionally refactored from a single, monolithic file (page.js) into a series of single-responsibility custom hooks. This has dramatically improved readability, maintainability, and scalability.
+✅ Phase 6: AI Intelligence Upgrade (100% Complete)
+The AI's conversational ability was significantly enhanced from a simple chatbot to a dynamic conversationalist.
+Conversation Memory: The application now sends the entire conversation history with every request, giving the AI a perfect memory and the ability to ask context-aware follow-up questions.
+Advanced "State Machine" Prompts: The AI personas are now defined by highly detailed system prompts that instruct the AI on how to manage a conversation's flow through distinct stages, including rules on pacing, tone, and how to end the conversation naturally.
+Multi-Stage Scenario Logic: The application can now handle complex scenarios with multiple distinct parts, such as the official 3-part IELTS Speaking Test.
+4. Roadmap: What is Left
+The project is now ready to implement its monetization strategy.
+🔄 Phase 7: Subscription System Implementation (Lemon Squeezy)
+Objective: To integrate the Lemon Squeezy payment platform to offer a "Pro" subscription tier, unlocking premium features for paying users.
+Sub-Phase 7.1: Backend Foundation & Configuration
+Status: Not Started.
+Tasks:
+Create a Lemon Squeezy account and enable sandbox mode.
+Create "Pro Plan" (e.g., $10/month) and "Free Plan" products in the Lemon Squeezy dashboard.
+Securely store Lemon Squeezy API keys in the .env.local file.
+Install the Lemon Squeezy Node.js SDK (@lemonsqueezy/lemonsqueezy.js).
+Sub-Phase 7.2: Pricing Page UI
+Status: Not Started.
+Tasks:
+Create a new route and file: app/pricing/page.js.
+Build a UI component that displays a comparison of the Free vs. Pro plans.
+Include an "Upgrade Now" button on the Pro plan.
+Sub-Phase 7.3: Secure Checkout Integration
+Status: Not Started.
+Tasks:
+Create a new backend API: app/api/create-checkout-session/route.js.
+This API will securely generate a unique Lemon Squeezy checkout link for the user.
+The "Upgrade Now" button will call this API and redirect the user to the secure Lemon Squeezy checkout page.
+Sub-Phase 7.4: Webhook for Success Events
+Status: Not Started.
+Tasks:
+Create a new webhook listener API: app/api/lemon-squeezy-webhook/route.js.
+This API will securely listen for the subscription_created event from Lemon Squeezy's servers.
+Upon receiving a successful event, it will update the user's document in Firestore to set their subscriptionTier to 'pro'.
+Sub-Phase 7.5: Feature Gating
+Status: Not Started.
+Tasks:
+Update AuthContext to fetch and provide the user's subscriptionTier globally.
+Implement logic in the application to check this tier. For example:
+Prevent free users from viewing AI-generated reports.
+Limit free users to saving only their 3 most recent sessions.
+Display "Upgrade" prompts in the UI where features are locked.
+Sub-Phase 7.6: Subscription Management
+Status: Not Started.
+Tasks:
+Use Lemon Squeezy's pre-built Customer Portal to allow users to manage their subscriptions.
+Create a new API (app/api/create-portal-session/route.js) to generate a secure link to this portal.
+Add a "Manage Subscription" button in the user's profile dropdown menu.
+Update the webhook listener to handle subscription_cancelled events to downgrade the user's tier back to 'free' in Firestore.
