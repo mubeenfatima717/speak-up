@@ -124,7 +124,7 @@ export default function SessionView({
               {isResponding ? (
                 <span className="italic text-gray-400">Thinking...</span>
               ) : (
-                <p>"{getLastAiMessage()}"</p>
+                <p>{getLastAiMessage()}</p>
               )}
             </div>
           </div>
